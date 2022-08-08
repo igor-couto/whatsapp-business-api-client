@@ -1,6 +1,6 @@
-# Whatsapp Bussiness API Client Application
+# Whatsapp Business API Client Application
 
-This is an elementary Business Solution Provider sample that communicates with the Whatsapp Bussiness API (WABA).
+This is an elementary Business Solution Provider sample that communicates with the Whatsapp Business API (WABA).
 Only do basic operations. I can't guarantee it's working or even correct : )
 Check `appsettings.json` to set your configuration
 
