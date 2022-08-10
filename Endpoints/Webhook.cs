@@ -3,6 +3,7 @@ namespace WhatsappBusinessApiClient.Endpoints;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using WhatsappBusinessApiClient.Requests.Incoming;
+using WhatsappBusinessApiClient.Requests.Outgoing;
 
 public static class Webhook
 {
@@ -10,7 +11,7 @@ public static class Webhook
     {
         app.MapGet("/webhook", VerifyWebhook);
         app.MapPost("/webhook", ReceiveMessage);
-        app.MapPost("/register-webhook", RegisterWebhook);
+        app.MapPost("/webhook/register", RegisterWebhook);
     }
 
     public static IResult VerifyWebhook(WebhookVerificationRequest webhookVerificationRequest, [FromServices] IConfiguration configuration)
@@ -33,7 +34,6 @@ public static class Webhook
     }
 
     //https://developers.facebook.com/docs/graph-api/reference/v14.0/app/subscriptions
-
     private static async Task<IResult> RegisterWebhook(
         string endpoint,
         [FromServices] IHttpClientFactory httpClientFactory,
@@ -44,8 +44,6 @@ public static class Webhook
         var content = new RegisterWebhookRequest(endpoint).ToContent();
 
         var appId = configuration.GetSection("WhatsappCloudApi")["AppId"];
-
-        // essa chamada deve ser feita com o app access token no header!
 
         await httpClient.PostAsync($"{appId}/subscriptions", content);
 
