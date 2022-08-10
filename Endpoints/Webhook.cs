@@ -2,7 +2,7 @@ namespace WhatsappBusinessApiClient.Endpoints;
 
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using WhatsappBusinessApiClient.IncomingRequests;
+using WhatsappBusinessApiClient.Requests.Incoming;
 
 public static class Webhook
 {

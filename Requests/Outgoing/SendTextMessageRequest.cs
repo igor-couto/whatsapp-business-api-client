@@ -1,7 +1,8 @@
-namespace WhatsappBusinessApiClient;
+namespace WhatsappBusinessApiClient.Requests.Outgoing;
 
 using System.Text;
 using Newtonsoft.Json;
+using WhatsappBusinessApiClient.Requests.Incoming;
 
 public class SendTextMessageRequest
 {

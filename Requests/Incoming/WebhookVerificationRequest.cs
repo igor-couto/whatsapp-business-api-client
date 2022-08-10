@@ -1,6 +1,6 @@
-using Newtonsoft.Json;
+namespace WhatsappBusinessApiClient.Requests.Incoming;
 
-namespace WhatsappBusinessApiClient.IncomingRequests;
+using Newtonsoft.Json;
 
 public class WebhookVerificationRequest
 {

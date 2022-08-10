@@ -1,4 +1,4 @@
-namespace WhatsappBusinessApiClient;
+namespace WhatsappBusinessApiClient.Requests.Incoming;
 
 using Newtonsoft.Json;
 

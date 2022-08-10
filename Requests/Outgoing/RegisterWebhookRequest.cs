@@ -1,4 +1,4 @@
-namespace WhatsappBusinessApiClient;
+namespace WhatsappBusinessApiClient.Requests.Outgoing;
 
 using System.Text;
 using System.Web;
