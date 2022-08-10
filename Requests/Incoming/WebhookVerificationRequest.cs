@@ -1,15 +1,15 @@
 namespace WhatsappBusinessApiClient.Requests.Incoming;
 
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 public class WebhookVerificationRequest
 {
-    [JsonProperty("mode")]
+    [JsonPropertyName("mode")]
     public string Mode { get; set; }
 
-    [JsonProperty("verify_token")]
+    [JsonPropertyName("verify_token")]
     public string VerifyToken { get; set; }
 
-    [JsonProperty("challenge")]
+    [JsonPropertyName("challenge")]
     public string Challenge { get; set; }
 }

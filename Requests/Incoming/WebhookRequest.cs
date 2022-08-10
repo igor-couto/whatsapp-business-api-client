@@ -1,93 +1,93 @@
 namespace WhatsappBusinessApiClient.Requests.Incoming;
 
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 public class WebhookRequest
 {
-    [JsonProperty("object")]
+    [JsonPropertyName("object")]
     public string Object;
 
-    [JsonProperty("entry")]
+    [JsonPropertyName("entry")]
     public List<Entry> Entry;
 }
 
 public class Entry
 {
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string Id;
 
-    [JsonProperty("changes")]
+    [JsonPropertyName("changes")]
     public List<Change> Changes;
 }
 
 public class Change
 {
-    [JsonProperty("field")]
+    [JsonPropertyName("field")]
     public string Field;
 
-    [JsonProperty("Value")]
+    [JsonPropertyName("Value")]
     public Value Value;
 }
 
 public class Value
 {
-    [JsonProperty("messaging_product")]
+    [JsonPropertyName("messaging_product")]
     public string MessagingProduct;
 
-    [JsonProperty("metadata")]
+    [JsonPropertyName("metadata")]
     public Metadata Metadata;
 
-    [JsonProperty("contacts")]
+    [JsonPropertyName("contacts")]
     public List<Contact> Contacts;
 
-    [JsonProperty("messages")]
+    [JsonPropertyName("messages")]
     public List<Message> Messages;
 }
 
 public class Metadata
 {
-    [JsonProperty("display_phone_number")]
+    [JsonPropertyName("display_phone_number")]
     public string DisplayPhoneNumber;
 
-    [JsonProperty("phone_number_id")]
+    [JsonPropertyName("phone_number_id")]
     public string PhoneNumberId;
 }
 
 public class Contact
 {
-    [JsonProperty("profile")]
+    [JsonPropertyName("profile")]
     public Profile Profile;
 
-    [JsonProperty("wa_id")]
+    [JsonPropertyName("wa_id")]
     public string WhatsappId;
 }
 
 public class Profile
 {
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string Name;
 }
 
 public class Message
 {
-    [JsonProperty("from")]
+    [JsonPropertyName("from")]
     public string From;
 
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string Id;
 
-    [JsonProperty("type")]
+    [JsonPropertyName("type")]
     public string Type;
 
-    [JsonProperty("timestamp")]
+    [JsonPropertyName("timestamp")]
     public string Timestamp;
 
-    [JsonProperty("text")]
+    [JsonPropertyName("text")]
     public Text Text;
 }
 
 public class Text
 {
-    [JsonProperty("body")]
+    [JsonPropertyName("body")]
     public string Body;
 }

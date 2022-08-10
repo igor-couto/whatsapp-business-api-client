@@ -1,24 +1,25 @@
 namespace WhatsappBusinessApiClient.Requests.Outgoing;
 
 using System.Text;
+using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 using WhatsappBusinessApiClient.Requests.Incoming;
 
 public class SendTextMessageRequest
 {
-    [JsonProperty("messaging_product")]
+    [JsonPropertyName("messaging_product")]
     public string MessagingProduct => "whatsapp";
 
-    [JsonProperty("type")]
+    [JsonPropertyName("type")]
     public string Type => "text";
 
-    [JsonProperty("recipient_type")]
+    [JsonPropertyName("recipient_type")]
     public string RecipientType => "individual";
 
-    [JsonProperty("to")]
+    [JsonPropertyName("to")]
     public string To { get; private set; }
 
-    [JsonProperty("text")]
+    [JsonPropertyName("text")]
     public Text Text { get; private set; }
 
     public SendTextMessageRequest(string whatsappId, string text)
