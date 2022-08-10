@@ -1,4 +1,4 @@
-namespace WhatsappBusinessApiClient;
+namespace WhatsappBusinessApiClient.Logs;
 
 using System.Text;
 
