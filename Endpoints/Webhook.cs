@@ -3,6 +3,7 @@ namespace WhatsappBusinessApiClient.Endpoints;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using WhatsappBusinessApiClient.Requests.Incoming;
+using WhatsappBusinessApiClient.Requests.Incoming.Full;
 using WhatsappBusinessApiClient.Requests.Outgoing;
 
 public static class Webhook
@@ -27,11 +28,10 @@ public static class Webhook
         return Results.Forbid();
     }
 
-    public static IResult ReceiveMessage(WebhookRequest webhookRequest)
+    public static IResult ReceiveMessage(WebhookRequestFull webhookRequestFull)
     {
         Console.WriteLine("Message Received: ");
-        Console.WriteLine(JsonConvert.SerializeObject(webhookRequest, Formatting.Indented));
-        Console.WriteLine("FIELDS: " + webhookRequest.Field);
+        Console.WriteLine(JsonConvert.SerializeObject(webhookRequestFull, Formatting.Indented));
         return Results.Ok();
     }
 
