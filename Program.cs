@@ -1,4 +1,4 @@
-using WhatsappBusinessApiClient;
+using WhatsappBusinessApiClient.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +22,8 @@ app.UseSwaggerUI(config => config.DefaultModelsExpandDepth(-1));
 
 app.UseHttpsRedirection();
 
-app.MapEndpoints();
+app.MapSendMessageEndpoints();
+
+app.MapWebhookEndpoints();
 
 app.Run();
