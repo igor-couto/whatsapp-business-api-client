@@ -1,6 +1,7 @@
 namespace WhatsappBusinessApiClient.Endpoints;
 
 using Microsoft.AspNetCore.Mvc;
+using WhatsappBusinessApiClient.Requests.Outgoing;
 
 public static class SendMessage
 {
