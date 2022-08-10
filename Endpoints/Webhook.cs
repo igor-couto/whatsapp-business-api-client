@@ -14,7 +14,7 @@ public static class Webhook
         app.MapPost("/webhook/register", RegisterWebhook);
     }
 
-    public static IResult VerifyWebhook(WebhookVerificationRequest webhookVerificationRequest, [FromServices] IConfiguration configuration)
+    public static IResult VerifyWebhook([FromBody] WebhookVerificationRequest webhookVerificationRequest, [FromServices] IConfiguration configuration)
     {
         var verifyToken = configuration["VerifyToken"];
 
