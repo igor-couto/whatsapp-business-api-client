@@ -1,3 +1,4 @@
+using WhatsappBusinessApiClient;
 using WhatsappBusinessApiClient.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,5 +29,13 @@ app.MapHealthChecks("/health");
 app.MapSendMessageEndpoints();
 
 app.MapWebhookEndpoints();
+
+app.Use((context, next) =>
+{
+    context.Request.EnableBuffering();
+    return next();
+});
+
+app.UseMiddleware<LogMiddleware>();
 
 app.Run();
