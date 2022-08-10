@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - WhatsappBusinessApiClient
+name: Build and deploy ASP.Net Core app to Azure Web App - whatsappbusinessapiclient
 
 on:
   push:
@@ -51,7 +51,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'WhatsappBusinessApiClient'
+          app-name: 'whatsappbusinessapiclient'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9E36085700564A1DA7C3F78B666FEACE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5C29F1AC8E7B4094B1CE5C5512F3FE1E }}
           package: .
