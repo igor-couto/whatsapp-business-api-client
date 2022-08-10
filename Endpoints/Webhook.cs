@@ -29,7 +29,9 @@ public static class Webhook
 
     public static IResult ReceiveMessage(WebhookRequest webhookRequest)
     {
+        Console.WriteLine("Message Received: ");
         Console.WriteLine(JsonConvert.SerializeObject(webhookRequest, Formatting.Indented));
+        Console.WriteLine("FIELDS: " + webhookRequest.Field);
         return Results.Ok();
     }
 
