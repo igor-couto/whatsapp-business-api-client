@@ -14,14 +14,14 @@ public static class Webhook
         app.MapPost("/webhook/register", RegisterWebhook);
     }
 
-    public static IResult VerifyWebhook([FromBody] WebhookVerificationRequest webhookVerificationRequest, [FromServices] IConfiguration configuration)
+    public static IResult VerifyWebhook(WebhookVerificationQueryString webhookVerificationQueryString, [FromServices] IConfiguration configuration)
     {
         var verifyToken = configuration["VerifyToken"];
 
-        if (webhookVerificationRequest.Mode == "subscribe" && webhookVerificationRequest.VerifyToken == verifyToken)
+        if (webhookVerificationQueryString.Mode == "subscribe" && webhookVerificationQueryString.VerifyToken == verifyToken)
         {
             Console.WriteLine("Webhook verified with success");
-            return Results.Ok();
+            return Results.Ok(int.Parse(webhookVerificationQueryString.Challenge));
         }
 
         return Results.Forbid();
@@ -33,7 +33,6 @@ public static class Webhook
         return Results.Ok();
     }
 
-    //https://developers.facebook.com/docs/graph-api/reference/v14.0/app/subscriptions
     private static async Task<IResult> RegisterWebhook(
         string endpoint,
         [FromServices] IHttpClientFactory httpClientFactory,
