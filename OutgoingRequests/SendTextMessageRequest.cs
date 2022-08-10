@@ -33,9 +33,3 @@ public class SendTextMessageRequest
         return new StringContent(jsonString, Encoding.UTF8, "application/json");
     }
 }
-
-public class Text
-{
-    [JsonProperty("body")]
-    public string Body { get; set; }
-}
