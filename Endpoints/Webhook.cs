@@ -8,8 +8,22 @@ public static class Webhook
 {
     public static void MapWebhookEndpoints(this WebApplication app)
     {
+        app.MapGet("/webhook", VerifyWebhook);
         app.MapPost("/webhook", ReceiveMessage);
         app.MapPost("/register-webhook", RegisterWebhook);
+    }
+
+    public static IResult VerifyWebhook(WebhookVerificationRequest webhookVerificationRequest, [FromServices] IConfiguration configuration)
+    {
+        var verifyToken = configuration["VerifyToken"];
+
+        if (webhookVerificationRequest.Mode == "subscribe" && webhookVerificationRequest.VerifyToken == verifyToken)
+        {
+            Console.WriteLine("Webhook verified with success");
+            return Results.Ok();
+        }
+
+        return Results.Forbid();
     }
 
     public static IResult ReceiveMessage(WebhookRequest webhookRequest)
