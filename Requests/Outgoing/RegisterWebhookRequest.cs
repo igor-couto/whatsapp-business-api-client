@@ -1,6 +1,5 @@
 namespace WhatsappBusinessApiClient.Requests.Outgoing;
 
-using System.Text;
 using System.Web;
 
 public class RegisterWebhookRequest
@@ -14,10 +13,15 @@ public class RegisterWebhookRequest
         _verifyToken = verifyToken;
     }
 
-    public StringContent ToContent()
+    public FormUrlEncodedContent ToContent()
     {
-        var stringContent = $"object=whatsapp_business_account&callback_url={_callbackUrl}&verify_token={_verifyToken}";
+        var urlEncoded = new Dictionary<string, string>();
 
-        return new StringContent(stringContent, Encoding.UTF8, "text/plain");
+        urlEncoded.Add("object", "whatsapp_business_account");
+        urlEncoded.Add("callback_url", _callbackUrl);
+        urlEncoded.Add("verify_token", _verifyToken);
+        urlEncoded.Add("fields", "messages");
+
+        return new FormUrlEncodedContent(urlEncoded);
     }
 }
