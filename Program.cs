@@ -9,13 +9,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
 
 var version = builder.Configuration.GetSection("WhatsappCloudApi")["Version"];
-var uri = $"https://graph.facebook.com/{version}/";
+var url = $"https://graph.facebook.com/{version}/";
 
 builder.Services.AddHttpClient("WhatsappCloudApiWithUserToken", httpClient =>
 {
     var userToken = builder.Configuration.GetSection("WhatsappCloudApi")["UserToken"];
     httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {userToken}");
-    httpClient.BaseAddress = new Uri(uri);
+    httpClient.BaseAddress = new Uri(url);
 });
 
 builder.Services.AddHttpClient("WhatsappCloudApiWithAppToken", httpClient =>

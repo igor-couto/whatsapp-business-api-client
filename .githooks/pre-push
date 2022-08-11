@@ -1,0 +1,21 @@
+RED='\033[0;31m'
+GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+NOCOLOR='\033[0m'
+
+echo ""
+echo -e "${YELLOW}Building project...${NC}"
+    
+DOTNET_CLI_TELEMETRY_OPTOUT=1
+DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+
+dotnet build
+
+if [ $? -ne 0 ] ; then
+    echo ""
+	echo -e "${RED}The build failed. Please fix the problems before pushing the changes${NOCOLOR}"
+	echo ""
+	exit 1
+fi
+
+exit 0
