@@ -4,6 +4,15 @@ using System.Text.Json.Serialization;
 
 public class WebhookRequest
 {
+    [JsonPropertyName("object")]
+    public string Object { get; set; }
+
+    [JsonPropertyName("entry")]
+    public List<Entry> Entry { get; set; }
+}
+
+public class Change
+{
     [JsonPropertyName("field")]
     public string Field { get; set; }
 
@@ -18,6 +27,15 @@ public class Contact
 
     [JsonPropertyName("wa_id")]
     public string WaId { get; set; }
+}
+
+public class Entry
+{
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    [JsonPropertyName("changes")]
+    public List<Change> Changes { get; set; }
 }
 
 public class Message

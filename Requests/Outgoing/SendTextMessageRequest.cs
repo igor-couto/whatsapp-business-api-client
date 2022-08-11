@@ -1,8 +1,8 @@
 namespace WhatsappBusinessApiClient.Requests.Outgoing;
 
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization;
-using Newtonsoft.Json;
 using WhatsappBusinessApiClient.Requests.Incoming;
 
 public class SendTextMessageRequest
@@ -25,13 +25,12 @@ public class SendTextMessageRequest
     public SendTextMessageRequest(string whatsappId, string text)
     {
         To = whatsappId;
-        Text = new();
-        Text.Body = text;
+        Text = new() { Body = text };
     }
 
     public StringContent ToContent()
     {
-        var jsonString = JsonConvert.SerializeObject(this, Formatting.Indented);
+        var jsonString = JsonSerializer.Serialize(this);
         return new StringContent(jsonString, Encoding.UTF8, "application/json");
     }
 }

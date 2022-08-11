@@ -1,9 +1,8 @@
 namespace WhatsappBusinessApiClient.Endpoints;
 
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using WhatsappBusinessApiClient.Requests.Incoming;
-using WhatsappBusinessApiClient.Requests.Incoming.Full;
 using WhatsappBusinessApiClient.Requests.Outgoing;
 
 public static class Webhook
@@ -28,10 +27,9 @@ public static class Webhook
         return Results.Forbid();
     }
 
-    public static IResult ReceiveMessage(WebhookRequestFull webhookRequestFull)
+    public static IResult ReceiveMessage(WebhookRequest webhookRequest)
     {
-        Console.WriteLine("Message Received: ");
-        Console.WriteLine(JsonConvert.SerializeObject(webhookRequestFull, Formatting.Indented));
+        Console.WriteLine("Message Received: " + JsonSerializer.Serialize(webhookRequest, new JsonSerializerOptions { WriteIndented = true }));
         return Results.Ok();
     }
 
@@ -40,12 +38,11 @@ public static class Webhook
         [FromServices] IHttpClientFactory httpClientFactory,
         [FromServices] IConfiguration configuration)
     {
-        var httpClient = httpClientFactory.CreateClient("WhatsappCloudApi");
-
-        var content = new RegisterWebhookRequest(endpoint).ToContent();
+        var verifyToken = configuration["VerifyToken"];
+        var content = new RegisterWebhookRequest(endpoint, verifyToken).ToContent();
 
         var appId = configuration.GetSection("WhatsappCloudApi")["AppId"];
-
+        var httpClient = httpClientFactory.CreateClient("WhatsappCloudApiWithAppToken");
         await httpClient.PostAsync($"{appId}/subscriptions", content);
 
         return Results.Ok();

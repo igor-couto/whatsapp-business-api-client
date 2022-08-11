@@ -1,5 +1,5 @@
-using WhatsappBusinessApiClient;
 using WhatsappBusinessApiClient.Endpoints;
+using WhatsappBusinessApiClient.Logs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,12 +9,20 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
 
 var version = builder.Configuration.GetSection("WhatsappCloudApi")["Version"];
-var userToken = builder.Configuration.GetSection("WhatsappCloudApi")["UserToken"];
+var uri = $"https://graph.facebook.com/{version}/";
 
-builder.Services.AddHttpClient("WhatsappCloudApi", httpClient =>
+builder.Services.AddHttpClient("WhatsappCloudApiWithUserToken", httpClient =>
 {
-    httpClient.BaseAddress = new Uri($"https://graph.facebook.com/{version}/");
-    httpClient.DefaultRequestHeaders.Add("Authorization", userToken);
+    var userToken = builder.Configuration.GetSection("WhatsappCloudApi")["UserToken"];
+    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {userToken}");
+    httpClient.BaseAddress = new Uri(uri);
+});
+
+builder.Services.AddHttpClient("WhatsappCloudApiWithAppToken", httpClient =>
+{
+    var appToken = builder.Configuration.GetSection("WhatsappCloudApi")["AppToken"];
+    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {appToken}");
+    httpClient.BaseAddress = new Uri(uri);
 });
 
 var app = builder.Build();
