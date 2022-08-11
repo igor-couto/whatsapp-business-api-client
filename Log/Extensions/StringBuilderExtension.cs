@@ -44,12 +44,23 @@ public static class StringBuilderExtension
 
     public static async Task<StringBuilder> AppendRequestBody(this StringBuilder stringBuilder, HttpContext httpContext)
     {
-        var requestBody = await httpContext.GetRequestBody();
+        var requestBody = await GetRequestBody(httpContext);
         if (!string.IsNullOrEmpty(requestBody))
         {
             stringBuilder.AppendLine("Body:");
             return stringBuilder.AppendLine($"{requestBody}");
         }
         else return stringBuilder;
+    }
+
+    public static async Task<string> GetRequestBody(HttpContext httpContext)
+    {
+        if (!httpContext.Request.Body.CanSeek)
+            httpContext.Request.EnableBuffering();
+        httpContext.Request.Body.Position = 0;
+        var reader = new StreamReader(httpContext.Request.Body, Encoding.UTF8);
+        var requestBody = await reader.ReadToEndAsync().ConfigureAwait(false);
+        httpContext.Request.Body.Position = 0;
+        return requestBody ?? string.Empty;
     }
 }

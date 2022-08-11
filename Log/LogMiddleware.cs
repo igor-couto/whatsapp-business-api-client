@@ -2,6 +2,20 @@ namespace WhatsappBusinessApiClient.Logs;
 
 using System.Text;
 
+public static class Log
+{
+    public static void UseLogs(this WebApplication app)
+    {
+        app.Use((context, next) =>
+        {
+            context.Request.EnableBuffering();
+            return next();
+        });
+
+        app.UseMiddleware<LogMiddleware>();
+    }
+}
+
 public class LogMiddleware
 {
     private readonly RequestDelegate _next;

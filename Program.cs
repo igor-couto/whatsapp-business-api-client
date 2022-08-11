@@ -38,12 +38,6 @@ app.MapSendMessageEndpoints();
 
 app.MapWebhookEndpoints();
 
-app.Use((context, next) =>
-{
-    context.Request.EnableBuffering();
-    return next();
-});
-
-app.UseMiddleware<LogMiddleware>();
+app.UseLogs();
 
 app.Run();
