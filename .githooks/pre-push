@@ -18,4 +18,8 @@ if [ $? -ne 0 ] ; then
 	exit 1
 fi
 
+echo ""
+echo -e "${GREEN}Build successfully executed${NOCOLOR}"
+echo ""
+
 exit 0
