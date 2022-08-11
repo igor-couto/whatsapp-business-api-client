@@ -44,8 +44,11 @@ public static class Webhook
         var appId = configuration.GetSection("WhatsappCloudApi")["AppId"];
         var httpClient = httpClientFactory.CreateClient("WhatsappCloudApiWithAppToken");
 
-        await httpClient.PostAsync($"{appId}/subscriptions", content);        
+        var response = await httpClient.PostAsync($"{appId}/subscriptions", content);
 
-        return Results.Ok();
+        if (response.IsSuccessStatusCode)
+            return Results.Ok();
+
+        return Results.BadRequest();
     }
 }

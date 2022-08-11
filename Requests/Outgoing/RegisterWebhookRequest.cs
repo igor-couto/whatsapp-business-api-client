@@ -4,12 +4,12 @@ using System.Web;
 
 public class RegisterWebhookRequest
 {
-    private string _callbackUrl;
-    private string _verifyToken;
+    private readonly string _callbackUrl;
+    private readonly string _verifyToken;
 
     public RegisterWebhookRequest(string endpoint, string verifyToken)
     {
-        _callbackUrl = HttpUtility.UrlEncode(endpoint);
+        _callbackUrl = endpoint;
         _verifyToken = verifyToken;
     }
 
