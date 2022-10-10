@@ -54,6 +54,9 @@ public class Message
 
     [JsonPropertyName("text")]
     public Text Text { get; set; }
+
+    [JsonPropertyName("image")]
+    public Image Image { get; set; }
 }
 
 public class Metadata
@@ -75,6 +78,18 @@ public class Text
 {
     [JsonPropertyName("body")]
     public string Body { get; set; }
+}
+
+public class Image
+{
+    [JsonPropertyName("mime_type")]
+    public string MimeType { get; set; }
+    
+    [JsonPropertyName("sha256")]
+    public string Sha256 { get; set; }
+
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
 }
 
 public class Value
