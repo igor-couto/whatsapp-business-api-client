@@ -4,6 +4,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using WhatsappBusinessApiClient.Requests.Incoming;
 using WhatsappBusinessApiClient.Requests.Outgoing;
+using System.Threading.Tasks;
 
 public static class Webhook
 {
@@ -27,9 +28,18 @@ public static class Webhook
         return Results.Forbid();
     }
 
-    public static IResult ReceiveMessage(WebhookRequest webhookRequest)
+    public static async Task<IResult> ReceiveMessage([FromServices] IHttpClientFactory httpClientFactory, WebhookRequest webhookRequest)
     {
         Console.WriteLine("Message Received: " + JsonSerializer.Serialize(webhookRequest, new JsonSerializerOptions { WriteIndented = true }));
+
+        if(webhookRequest.Entry.FirstOrDefault().Changes.FirstOrDefault().Value.Messages.FirstOrDefault().Type == "image")
+        {
+            var httpClient = httpClientFactory.CreateClient("WhatsappCloudApiWithUserToken");
+            var mediaId = webhookRequest.Entry.FirstOrDefault().Changes.FirstOrDefault().Value.Messages.FirstOrDefault().Image.Id;
+            var response = await httpClient.GetAsync($"media/{mediaId}");
+            var media = await response.Content.ReadAsStreamAsync();
+            return Results.Ok(media);
+        }
         return Results.Ok();
     }
 
