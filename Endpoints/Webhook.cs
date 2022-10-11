@@ -36,9 +36,11 @@ public static class Webhook
         {
             var httpClient = httpClientFactory.CreateClient("WhatsappCloudApiWithUserToken");
             var mediaId = webhookRequest.Entry.FirstOrDefault().Changes.FirstOrDefault().Value.Messages.FirstOrDefault().Image.Id;
-            var response = await httpClient.GetAsync($"media/{mediaId}");
-            var media = await response.Content.ReadAsStreamAsync();
-            return Results.Ok(media);
+
+            var response = JsonSerializer.Deserialize<GetMediaUrlResponse>((await httpClient.GetAsync($"{mediaId}")).Content.ReadAsStream());
+            
+            var file = (await httpClient.GetAsync(response.Url)).Content.ReadAsStringAsync();
+            return Results.Ok(file);
         }
         return Results.Ok();
     }
